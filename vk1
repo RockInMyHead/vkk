@@ -1,0 +1,22 @@
+import vk_api
+import time
+print ("start")
+session = vk_api.VkApi(token="d002379951797b7447dc2867a1f7a3c69c2dee44cda4592d4ef2ab06cb395239d38779be7a05262113693")
+vk = session.get_api()
+
+for i in range(0,200):
+    my_users = session.method("users.search",{"fields":{"city"},"count":1000,"offset" : 1000})
+    time.sleep(1)
+    one = my_users.get("items")
+    #print(my_users)
+    for j in one:
+        try:
+            all = j.get('city')
+            city = all.get('title')
+            id = j.get('id')
+            if city == "Крымск":
+                print(city + " - " + str(id))
+                print(i)
+        except:
+            print("None")
+            print(i)
